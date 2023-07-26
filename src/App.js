@@ -5,7 +5,7 @@ import aws_exports from "./oAuth";
 import { Button, Heading, Flex, View } from "@aws-amplify/ui-react";
 import MyTickets from './MyTickets';
 
-Auth.configure(aws_exports);
+//Auth.configure(aws_exports);
 
 const Home = () => <Heading level={3}>This is Home</Heading>;
 const Profile = () => <Heading level={3}>This is Profile</Heading>;
