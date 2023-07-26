@@ -132,4 +132,4 @@ const App = ({ signOut }) => {
   );
 };
 
-export default withAuthenticator(App);
+export default withOAuth(App);
