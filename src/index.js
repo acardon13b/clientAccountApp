@@ -7,21 +7,23 @@ import reportWebVitals from './reportWebVitals';
 import { Amplify } from 'aws-amplify';
 import config from './aws-exports';
 
+Amplify.Logger.LOG_LEVEL = "DEBUG";
 
 let updatedAwsExports = {};
 
 
-  Amplify.Logger.LOG_LEVEL = "DEBUG";
+  
   updatedAwsExports = {
     ...config,
     oauth: {
       ...config.oauth,
+      //domain: process.env.REACT_APP_OAUTH_DOMAIN,
       domain: "login.metalive.art",
       scope: ["email", "openid"],
-      redirectSignIn: "https://main.dphac8bawa2rt.amplifyapp.com/",
-      redirectSignOut: "https://main.dphac8bawa2rt.amplifyapp.com/",
-      //redirectSignIn: "http://localhost:3000/",
-      //redirectSignOut: "http://localhost:3000/",
+     // redirectSignIn: process.env.REACT_APP_REDIRECT_SIGNIN,
+      //redirectSignOut: process.env.REACT_APP_REDIRECT_SIGNOUT,
+      redirectSignIn: "http://localhost:3000/",
+      redirectSignOut: "http://localhost:3000/",
       responseType: "code" // or 'token', whatever you configured
     },
   };

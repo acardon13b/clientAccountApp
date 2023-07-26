@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { Auth } from "aws-amplify";
-import aws_exports from "./oAuth";
+//import aws_exports from "./oAuth";
 import { Button, Heading, Flex, View } from "@aws-amplify/ui-react";
 import MyTickets from './MyTickets';
 
