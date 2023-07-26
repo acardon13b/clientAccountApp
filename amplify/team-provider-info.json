@@ -15,11 +15,11 @@
       "auth": {
         "clientaccountapp5bf13fe4": {}
       },
-      "api": {
-        "clientaccountapp": {}
-      },
       "storage": {
         "imagestorage": {}
+      },
+      "api": {
+        "clientaccountapp": {}
       }
     }
   }

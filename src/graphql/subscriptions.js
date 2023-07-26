@@ -1,41 +1,65 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateNote = /* GraphQL */ `
-  subscription OnCreateNote($filter: ModelSubscriptionNoteFilterInput) {
-    onCreateNote(filter: $filter) {
+export const onCreateTicket = /* GraphQL */ `
+  subscription OnCreateTicket(
+    $filter: ModelSubscriptionTicketFilterInput
+    $owner: String
+  ) {
+    onCreateTicket(filter: $filter, owner: $owner) {
       id
-      name
-      description
-      image
+      email
+      ticketType
+      date
+      url
+      owner
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       __typename
     }
   }
 `;
-export const onUpdateNote = /* GraphQL */ `
-  subscription OnUpdateNote($filter: ModelSubscriptionNoteFilterInput) {
-    onUpdateNote(filter: $filter) {
+export const onUpdateTicket = /* GraphQL */ `
+  subscription OnUpdateTicket(
+    $filter: ModelSubscriptionTicketFilterInput
+    $owner: String
+  ) {
+    onUpdateTicket(filter: $filter, owner: $owner) {
       id
-      name
-      description
-      image
+      email
+      ticketType
+      date
+      url
+      owner
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       __typename
     }
   }
 `;
-export const onDeleteNote = /* GraphQL */ `
-  subscription OnDeleteNote($filter: ModelSubscriptionNoteFilterInput) {
-    onDeleteNote(filter: $filter) {
+export const onDeleteTicket = /* GraphQL */ `
+  subscription OnDeleteTicket(
+    $filter: ModelSubscriptionTicketFilterInput
+    $owner: String
+  ) {
+    onDeleteTicket(filter: $filter, owner: $owner) {
       id
-      name
-      description
-      image
+      email
+      ticketType
+      date
+      url
+      owner
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       __typename
     }
   }

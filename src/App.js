@@ -1,150 +1,59 @@
 import React, { useState, useEffect } from "react";
-import "@aws-amplify/ui-react/styles.css";
-import { Auth, API, Storage } from "aws-amplify";
-import { Button, Flex, Heading, Image, Text, TextField, View } from "@aws-amplify/ui-react";
-import { listNotes } from "./graphql/queries";
-import { createNote as createNoteMutation, deleteNote as deleteNoteMutation } from "./graphql/mutations";
-import aws_exports from "./aws-exports";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { Auth } from "aws-amplify";
+import aws_exports from "./oAuth";
+import { Button, Heading, Flex, View } from "@aws-amplify/ui-react";
+import MyTickets from './MyTickets';
 
 Auth.configure(aws_exports);
 
+const Home = () => <Heading level={3}>This is Home</Heading>;
+const Profile = () => <Heading level={3}>This is Profile</Heading>;
+//const MyTickets = () => <Heading level={3}>This is My Tickets</Heading>;
+const MyAssets = () => <Heading level={3}>This is My Assets</Heading>;
+
 const App = () => {
-  const [notes, setNotes] = useState([]);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    checkUser();
-    fetchNotes();
+    Auth.currentAuthenticatedUser()
+      .then((userData) => setUser(userData))
+      .catch((err) => console.log(err));
   }, []);
 
-  async function checkUser() {
-    try {
-      const userData = await Auth.currentAuthenticatedUser();
-      setUser(userData);
-    } catch (e) {
-      console.error(e);
-    }
-  }
+  const signOut = () => {
+    Auth.signOut()
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
+  };
 
-  async function signIn() {
-    await Auth.federatedSignIn();
-  }
-
-  async function signOut() {
-    try {
-      await Auth.signOut();
-      setUser(null); // clear the user state
-    } catch (error) {
-      console.error('Error signing out: ', error);
-    }
-  }
-
-  // ...Your other functions here...
-  async function fetchNotes() {
-    const apiData = await API.graphql({ query: listNotes });
-    const notesFromAPI = apiData.data.listNotes.items;
-    await Promise.all(
-      notesFromAPI.map(async (note) => {
-        if (note.image) {
-          const url = await Storage.get(note.name);
-          note.image = url;
-        }
-        return note;
-      })
-    );
-    setNotes(notesFromAPI);
-  }
-
-  async function createNote(event) {
-    event.preventDefault();
-    const form = new FormData(event.target);
-    const image = form.get("image");
-    const data = {
-      name: form.get("name"),
-      description: form.get("description"),
-      image: image.name,
-    };
-    if (!!data.image) await Storage.put(data.name, image);
-    await API.graphql({
-      query: createNoteMutation,
-      variables: { input: data },
-    });
-    fetchNotes();
-    event.target.reset();
-  }
-  
-
-  async function deleteNote({ id, name }) {
-    const newNotes = notes.filter((note) => note.id !== id);
-    setNotes(newNotes);
-    await Storage.remove(name);
-    await API.graphql({
-      query: deleteNoteMutation,
-      variables: { input: { id } },
-    });
-  }
-
-  return (
-    <View className="App">
-      <Heading level={1}>My Notes App</Heading>
-      <View as="form" margin="3rem 0" onSubmit={createNote}>
-        <Flex direction="row" justifyContent="center">
-          <TextField
-            name="name"
-            placeholder="Note Name"
-            label="Note Name"
-            labelHidden
-            variation="quiet"
-            required
-          />
-          <TextField
-            name="description"
-            placeholder="Note Description"
-            label="Note Description"
-            labelHidden
-            variation="quiet"
-            required
-          />
-          <View
-            name="image"
-            as="input"
-            type="file"
-            style={{ alignSelf: "end" }}
-          />
-          <Button type="submit" variation="primary">
-            Create Note
-          </Button>
+  return user ? (
+    <Router>
+      <Flex direction="column" align="center" gap="1rem">
+        <View padding="1rem" border="1px solid" borderColor="var(--amplify-colors-brand-primary)">
+          <Heading level={4}>App Name</Heading>
+        </View>
+        <Flex direction="row" justify="around" gap="1rem">
+          <Link to="/" style={{ marginRight: '20px' }}>Home</Link>
+          <Link to="/profile" style={{ marginRight: '20px' }}>Profile</Link>
+          <Link to="/tickets" style={{ marginRight: '20px' }}>My Tickets</Link>
+          <Link to="/assets" style={{ marginRight: '20px' }}>My Assets</Link>
+          <Button onClick={signOut}>Sign Out</Button>
         </Flex>
-      </View>
-      <Heading level={2}>Current Notes</Heading>
-      <View margin="3rem 0">
-      {notes.map((note) => (
-        <Flex
-          key={note.id || note.name}
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Text as="strong" fontWeight={700}>
-            {note.name}
-          </Text>
-          <Text as="span">{note.description}</Text>
-          {note.image && (
-            <Image
-              src={note.image}
-              alt={`visual aid for ${notes.name}`}
-              style={{ width: 400 }}
-            />
-          )}
-          <Button variation="link" onClick={() => deleteNote(note)}>
-            Delete note
-          </Button>
-        </Flex>
-      ))}
-      </View>
-      
-      {user ? <Button onClick={signOut}>Sign Out</Button> : <Button onClick={signIn}>Sign In</Button>}
-    </View>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/tickets" element={<MyTickets />} />
+          <Route path="/assets" element={<MyAssets />} />
+        </Routes>
+      </Flex>
+    </Router>
+  ) : (
+    <Flex direction="column" align="center" gap="1rem">
+      <img src="logo.png" alt="logo" style={{ width: '150px', marginTop: '50px' }}/>
+      <Heading level={3}>Welcome to our application!</Heading>
+      <Button onClick={() => Auth.federatedSignIn()}>Sign In</Button>
+    </Flex>
   );
 };
 
