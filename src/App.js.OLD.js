@@ -1,45 +1,30 @@
 import React, { useState, useEffect } from "react";
+import "./App.css";
 import "@aws-amplify/ui-react/styles.css";
-import { Auth, API, Storage } from "aws-amplify";
-import { Button, Flex, Heading, Image, Text, TextField, View } from "@aws-amplify/ui-react";
+import {  API, Storage } from "aws-amplify";
+import {
+  Button,
+  Flex,
+  Heading,
+  Image,
+  Text,
+  TextField,
+  View,
+  withAuthenticator,
+} from "@aws-amplify/ui-react";
 import { listNotes } from "./graphql/queries";
-import { createNote as createNoteMutation, deleteNote as deleteNoteMutation } from "./graphql/mutations";
-import aws_exports from "./aws-exports";
+import {
+  createNote as createNoteMutation,
+  deleteNote as deleteNoteMutation,
+} from "./graphql/mutations";
 
-Auth.configure(aws_exports);
-
-const App = () => {
+const App = ({ signOut }) => {
   const [notes, setNotes] = useState([]);
-  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    checkUser();
     fetchNotes();
   }, []);
 
-  async function checkUser() {
-    try {
-      const userData = await Auth.currentAuthenticatedUser();
-      setUser(userData);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  async function signIn() {
-    await Auth.federatedSignIn();
-  }
-
-  async function signOut() {
-    try {
-      await Auth.signOut();
-      setUser(null); // clear the user state
-    } catch (error) {
-      console.error('Error signing out: ', error);
-    }
-  }
-
-  // ...Your other functions here...
   async function fetchNotes() {
     const apiData = await API.graphql({ query: listNotes });
     const notesFromAPI = apiData.data.listNotes.items;
@@ -142,10 +127,9 @@ const App = () => {
         </Flex>
       ))}
       </View>
-      
-      {user ? <Button onClick={signOut}>Sign Out</Button> : <Button onClick={signIn}>Sign In</Button>}
+      <Button onClick={signOut}>Sign Out</Button>
     </View>
   );
 };
 
-export default App;
+export default withAuthenticator(App);
