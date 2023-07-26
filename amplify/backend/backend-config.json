@@ -1,13 +1,21 @@
 {
   "api": {
     "clientaccountapp": {
-      "dependsOn": [],
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "clientaccountapp5bf13fe4"
+        }
+      ],
       "output": {
         "authConfig": {
           "additionalAuthenticationProviders": [
             {
               "apiKeyConfig": {
-                "apiKeyExpirationDate": "2023-08-02T14:45:42.667Z",
+                "apiKeyExpirationDate": "2023-08-02T15:57:27.839Z",
                 "apiKeyExpirationDays": 7,
                 "description": ""
               },
@@ -15,7 +23,10 @@
             }
           ],
           "defaultAuthentication": {
-            "authenticationType": "AWS_IAM"
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authclientaccountapp5bf13fe4"
+            }
           }
         }
       },

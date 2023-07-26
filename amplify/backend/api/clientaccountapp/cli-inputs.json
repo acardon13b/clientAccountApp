@@ -4,13 +4,14 @@
     "apiName": "clientaccountapp",
     "serviceName": "AppSync",
     "defaultAuthType": {
-      "mode": "AWS_IAM"
+      "mode": "AMAZON_COGNITO_USER_POOLS",
+      "cognitoUserPoolId": "authclientaccountapp5bf13fe4"
     },
     "additionalAuthTypes": [
       {
         "mode": "API_KEY",
         "expirationTime": 7,
-        "apiKeyExpirationDate": "2023-08-02T14:45:42.667Z",
+        "apiKeyExpirationDate": "2023-08-02T15:57:27.839Z",
         "keyDescription": ""
       }
     ],
