@@ -18,10 +18,10 @@ let updatedAwsExports = {};
       ...config.oauth,
       domain: "login.metalive.art",
       scope: ["email", "openid"],
-      //redirectSignIn: "https://main.dphac8bawa2rt.amplifyapp.com/",
-      //redirectSignOut: "https://main.dphac8bawa2rt.amplifyapp.com/",
-      redirectSignIn: "http://localhost:3000/",
-      redirectSignOut: "http://localhost:3000/",
+      redirectSignIn: "https://main.dphac8bawa2rt.amplifyapp.com/",
+      redirectSignOut: "https://main.dphac8bawa2rt.amplifyapp.com/",
+      //redirectSignIn: "http://localhost:3000/",
+      //redirectSignOut: "http://localhost:3000/",
       responseType: "code" // or 'token', whatever you configured
     },
   };
