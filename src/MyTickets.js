@@ -1,6 +1,8 @@
 import { API, graphqlOperation } from "aws-amplify";
 import { listTickets } from "./graphql/queries"; // Replace with your actual query
 import { useEffect, useState } from "react";
+import TicketCard from './TicketCard'; // Import the TicketCard component
+import './MyTickets.css'; // Import the CSS file
 
 const MyTickets = () => {
   const [tickets, setTickets] = useState([]);
@@ -20,16 +22,14 @@ const MyTickets = () => {
   };
 
   return (
-    <div>
-      <h3>My Tickets :</h3>
+    <div className="section">
+        <h3>My Tickets :</h3>
+    <div className="container">
+      
       {tickets.map((ticket) => (
-        <div key={ticket.id}>
-          <p>Email: {ticket.email}</p>
-          <p>Ticket Type: {ticket.ticketType}</p>
-          <p>Date: {ticket.date}</p>
-          <a href={ticket.url}>Download Ticket</a>
-        </div>
+        <TicketCard key={ticket.id} ticket={ticket} />  // Use the TicketCard component to render each ticket
       ))}
+    </div>
     </div>
   );
 };

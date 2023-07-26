@@ -31,13 +31,13 @@ const App = () => {
     <Router>
       <Flex direction="column" align="center" gap="1rem">
         <View padding="1rem" border="1px solid" borderColor="var(--amplify-colors-brand-primary)">
-          <Heading level={4}>App Name</Heading>
+          <Heading level={4}>LE COMPTE METALIVE</Heading>
         </View>
         <Flex direction="row" justify="around" gap="1rem">
           <Link to="/" style={{ marginRight: '20px' }}>Home</Link>
-          <Link to="/profile" style={{ marginRight: '20px' }}>Profile</Link>
-          <Link to="/tickets" style={{ marginRight: '20px' }}>My Tickets</Link>
-          <Link to="/assets" style={{ marginRight: '20px' }}>My Assets</Link>
+          <Link to="/profile" style={{ marginRight: '20px' }}>Mes informations personelles</Link>
+          <Link to="/tickets" style={{ marginRight: '20px' }}>Mes Billets</Link>
+          <Link to="/assets" style={{ marginRight: '20px' }}>Mes Fichiers</Link>
           <Button onClick={signOut}>Sign Out</Button>
         </Flex>
         <Routes>

@@ -1,0 +1,9 @@
+.rounded-border {
+    border-radius: 20px; /* Adjust this value to get the desired amount of roundness */
+    border: 1px solid #ccc; /* Adjust the border color as desired */
+    padding: 20px; /* Add some padding to create space between the border and the content */
+    max-width: 600px; /* Add a max-width to prevent the Card from becoming too wide */
+    margin: 0 auto; /* Centers the Card if it's less than the max-width */
+    box-sizing: border-box; /* This ensures padding is included in the element's total width and height */
+  }
+  
