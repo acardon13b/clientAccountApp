@@ -17,13 +17,13 @@ let updatedAwsExports = {};
     ...config,
     oauth: {
       ...config.oauth,
-      //domain: process.env.REACT_APP_OAUTH_DOMAIN,
-      domain: "login.metalive.art",
+      domain: process.env.REACT_APP_OAUTH_DOMAIN,
+      //domain: "login.metalive.art",
       scope: ["email", "openid"],
-     // redirectSignIn: process.env.REACT_APP_REDIRECT_SIGNIN,
-      //redirectSignOut: process.env.REACT_APP_REDIRECT_SIGNOUT,
-      redirectSignIn: "http://localhost:3000/",
-      redirectSignOut: "http://localhost:3000/",
+      redirectSignIn: process.env.REACT_APP_OAUTH_REDIRECT_SIGNIN,
+      redirectSignOut: process.env.REACT_APP_OAUTH_REDIRECT_SIGNOUT,
+      //redirectSignIn: "http://localhost:3000/",
+      //redirectSignOut: "http://localhost:3000/",
       responseType: "code" // or 'token', whatever you configured
     },
   };
