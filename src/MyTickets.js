@@ -1,4 +1,4 @@
-import { API, graphqlOperation } from "aws-amplify";
+import { API, graphqlOperation } from "aws-amplify"; 
 import { listTickets } from "./graphql/queries"; // Replace with your actual query
 import { useEffect, useState } from "react";
 import TicketCard from './TicketCard'; // Import the TicketCard component
